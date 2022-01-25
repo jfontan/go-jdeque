@@ -1,7 +1,7 @@
 package jqueue
 
 type Queue[T any] struct {
-	head, tail *Chunk[T]
+	head, tail *chunk[T]
 	chunkSize  int
 }
 
@@ -16,7 +16,7 @@ func (q *Queue[T]) initialize() {
 		return
 	}
 
-	q.head = NewChunk[T](q.chunkSize)
+	q.head = newChunk[T](q.chunkSize)
 	q.tail = q.head
 }
 
@@ -28,7 +28,7 @@ func (q *Queue[T]) PushFront(value T) {
 		return
 	}
 
-	c := NewChunk[T](q.chunkSize)
+	c := newChunk[T](q.chunkSize)
 	ok = c.PushFront(value)
 	if !ok {
 		panic("could not PushFront to a new chunk")
@@ -70,7 +70,7 @@ func (q *Queue[T]) PushBack(value T) {
 		return
 	}
 
-	c := NewChunk[T](q.chunkSize)
+	c := newChunk[T](q.chunkSize)
 	ok = c.PushBack(value)
 	if !ok {
 		panic("could not PushBack to a new chunk")

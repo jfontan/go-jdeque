@@ -7,7 +7,7 @@ import (
 )
 
 func TestChunkFront(t *testing.T) {
-	c := NewChunk[int](10)
+	c := newChunk[int](10)
 
 	for i := 0; i < 10; i++ {
 		ok := c.PushFront(i)
@@ -29,7 +29,7 @@ func TestChunkFront(t *testing.T) {
 }
 
 func TestChunkBack(t *testing.T) {
-	c := NewChunk[int](10)
+	c := newChunk[int](10)
 
 	for i := 0; i < 10; i++ {
 		ok := c.PushBack(i)
@@ -51,7 +51,7 @@ func TestChunkBack(t *testing.T) {
 }
 
 func TestChunkMixed(t *testing.T) {
-	c := NewChunk[int](10)
+	c := newChunk[int](10)
 
 	for i := 0; i < 5; i++ {
 		ok := c.PushFront(i)
