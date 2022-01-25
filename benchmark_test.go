@@ -1,0 +1,59 @@
+package jqueue
+
+import (
+	"testing"
+
+	"github.com/carlmjohnson/deque"
+)
+
+func doWork(q *Queue[int]) {
+	for i := 0; i < 10_000_000; i++ {
+		q.PushFront(i)
+	}
+	for i := 0; i < 10_000_000; i++ {
+		q.PushBack(i)
+	}
+	for i := 0; i < 10_000_000; i++ {
+		q.PopBack()
+	}
+}
+
+func doWorkDeque(q *deque.Deque[int]) {
+	for i := 0; i < 10_000_000; i++ {
+		q.PushHead(i)
+	}
+	for i := 0; i < 10_000_000; i++ {
+		q.PushTail(i)
+	}
+	for i := 0; i < 10_000_000; i++ {
+		q.PopHead()
+	}
+}
+
+func BenchmarkJqueue256(b *testing.B) {
+	q := New[int](256)
+	for n := 0; n < b.N; n++ {
+		doWork(q)
+	}
+}
+
+func BenchmarkJqueue1024(b *testing.B) {
+	q := New[int](1024)
+	for n := 0; n < b.N; n++ {
+		doWork(q)
+	}
+}
+
+func BenchmarkJqueue1000000(b *testing.B) {
+	q := New[int](1024 * 1024)
+	for n := 0; n < b.N; n++ {
+		doWork(q)
+	}
+}
+
+func BenchmarkDeque(b *testing.B) {
+	q := deque.Make[int](0)
+	for n := 0; n < b.N; n++ {
+		doWorkDeque(q)
+	}
+}
