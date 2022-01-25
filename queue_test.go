@@ -41,3 +41,38 @@ func TestQueueBack(t *testing.T) {
 	require.False(t, ok)
 	require.Equal(t, 0, v)
 }
+
+func TestQueueMixed(t *testing.T) {
+	q := New[int](10)
+
+	q.PushFront(0)
+	q.PushFront(-1)
+	v, ok := q.PopBack()
+	require.True(t, ok)
+	require.Equal(t, 0, v)
+
+	for i := 0; i < 10; i++ {
+		q.PushFront(i)
+	}
+
+	for i := 0; i < 10; i++ {
+		q.PushBack(i)
+	}
+
+	var a []int
+	for {
+		v, ok := q.PopFront()
+		if !ok {
+			break
+		}
+		a = append(a, v)
+	}
+
+	expected := []int{
+		9, 8, 7, 6, 5, 4, 3, 2, 1, 0,
+		-1,
+		0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+	}
+
+	require.Equal(t, expected, a)
+}
