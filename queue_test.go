@@ -23,3 +23,21 @@ func TestQueueFront(t *testing.T) {
 	require.False(t, ok)
 	require.Equal(t, 0, v)
 }
+
+func TestQueueBack(t *testing.T) {
+	q := New[int](10)
+
+	for i := 0; i < 100; i++ {
+		q.PushBack(i)
+	}
+
+	for i := 100 - 1; i >= 0; i-- {
+		v, ok := q.PopBack()
+		require.True(t, ok)
+		require.Equal(t, i, v)
+	}
+
+	v, ok := q.PopBack()
+	require.False(t, ok)
+	require.Equal(t, 0, v)
+}

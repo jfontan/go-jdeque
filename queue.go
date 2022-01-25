@@ -61,3 +61,45 @@ func (q *Queue[T]) PopFront() (T, bool) {
 
 	return v, ok
 }
+
+func (q *Queue[T]) PushBack(value T) {
+	q.initialize()
+
+	ok := q.tail.PushBack(value)
+	if ok {
+		return
+	}
+
+	c := NewChunk[T](q.chunkSize)
+	ok = c.PushBack(value)
+	if !ok {
+		panic("could not PushBack to a new chunk")
+	}
+
+	c.right = q.tail
+	q.tail.left = c
+	q.tail = c
+}
+
+func (q *Queue[T]) PopBack() (T, bool) {
+	if q.tail == nil {
+		var v T
+		return v, false
+	}
+
+	v, ok := q.tail.PopBack()
+	if ok {
+		return v, ok
+	}
+
+	if q.tail.right != nil {
+		q.tail.right.left = nil
+	}
+	q.tail = q.tail.right
+
+	if q.tail != nil {
+		return q.tail.PopBack()
+	}
+
+	return v, ok
+}
