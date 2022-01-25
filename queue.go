@@ -1,10 +1,13 @@
 package jqueue
 
+// Queue implements a deque and values can be pushed or popped from front
+// and back.
 type Queue[T any] struct {
 	head, tail *chunk[T]
 	chunkSize  int
 }
 
+// New creates a new Queue.
 func New[T any](chunkSize int) *Queue[T] {
 	return &Queue[T]{
 		chunkSize: chunkSize,
@@ -20,6 +23,7 @@ func (q *Queue[T]) initialize() {
 	q.tail = q.head
 }
 
+// PushFront adds a new value to the right of the queue.
 func (q *Queue[T]) PushFront(value T) {
 	q.initialize()
 
@@ -39,6 +43,7 @@ func (q *Queue[T]) PushFront(value T) {
 	q.head = c
 }
 
+// PopFront retrieves the rightmost value. Returns false if the queue is empty.
 func (q *Queue[T]) PopFront() (T, bool) {
 	if q.head == nil {
 		var v T
@@ -62,6 +67,7 @@ func (q *Queue[T]) PopFront() (T, bool) {
 	return v, ok
 }
 
+// PushBack adds a new value to the left of the queue.
 func (q *Queue[T]) PushBack(value T) {
 	q.initialize()
 
@@ -81,6 +87,7 @@ func (q *Queue[T]) PushBack(value T) {
 	q.tail = c
 }
 
+// PopFront retrieves the leftmost value. Returns false if the queue is empty.
 func (q *Queue[T]) PopBack() (T, bool) {
 	if q.tail == nil {
 		var v T
