@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/carlmjohnson/deque"
+	gammazero "github.com/gammazero/deque"
 )
 
 func doWork(q *Queue[int]) {
@@ -30,6 +31,17 @@ func doWorkDeque(q *deque.Deque[int]) {
 	}
 }
 
+func doWorkGammazero(q *gammazero.Deque[int]) {
+	for i := 0; i < 10_000_000; i++ {
+		q.PushFront(i)
+	}
+	for i := 0; i < 10_000_000; i++ {
+		q.PushBack(i)
+	}
+	for i := 0; i < 10_000_000; i++ {
+		q.PopBack()
+	}
+}
 func BenchmarkJqueue256(b *testing.B) {
 	q := New[int](256)
 	for n := 0; n < b.N; n++ {
@@ -44,7 +56,7 @@ func BenchmarkJqueue1024(b *testing.B) {
 	}
 }
 
-func BenchmarkJqueue1000000(b *testing.B) {
+func BenchmarkJqueue1048576(b *testing.B) {
 	q := New[int](1024 * 1024)
 	for n := 0; n < b.N; n++ {
 		doWork(q)
@@ -55,5 +67,12 @@ func BenchmarkDeque(b *testing.B) {
 	q := deque.Make[int](0)
 	for n := 0; n < b.N; n++ {
 		doWorkDeque(q)
+	}
+}
+
+func BenchmarkGammazero(b *testing.B) {
+	q := gammazero.New[int](0)
+	for n := 0; n < b.N; n++ {
+		doWorkGammazero(q)
 	}
 }
