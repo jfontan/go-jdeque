@@ -63,14 +63,14 @@ func BenchmarkJqueue1048576(b *testing.B) {
 	}
 }
 
-func BenchmarkDeque(b *testing.B) {
+func BenchmarkCarlmjohnson(b *testing.B) {
 	q := deque.Make[int](0)
 	for n := 0; n < b.N; n++ {
 		doWorkDeque(q)
 	}
 }
 
-func BenchmarkGammazero(b *testing.B) {
+func BenchmarkSekoyo(b *testing.B) {
 	q := gammazero.New[int](0)
 	for n := 0; n < b.N; n++ {
 		doWorkGammazero(q)
