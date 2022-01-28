@@ -87,7 +87,7 @@ func (q *Queue[T]) PushBack(value T) {
 	q.tail = c
 }
 
-// PopFront retrieves the leftmost value. Returns false if the queue is empty.
+// PopBack retrieves the leftmost value. Returns false if the queue is empty.
 func (q *Queue[T]) PopBack() (T, bool) {
 	if q.tail == nil {
 		var v T
