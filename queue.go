@@ -1,16 +1,24 @@
 package jqueue
 
+import "sync"
+
 // Queue implements a deque and values can be pushed or popped from front
 // and back.
 type Queue[T any] struct {
 	head, tail *chunk[T]
 	chunkSize  int
+	pool       sync.Pool
 }
 
 // New creates a new Queue.
 func New[T any](chunkSize int) *Queue[T] {
 	return &Queue[T]{
 		chunkSize: chunkSize,
+		pool: sync.Pool{
+			New: func() interface{} {
+				return newChunk[T](chunkSize)
+			},
+		},
 	}
 }
 
@@ -19,7 +27,7 @@ func (q *Queue[T]) initialize() {
 		return
 	}
 
-	q.head = newChunk[T](q.chunkSize)
+	q.head = q.pool.Get().(*chunk[T])
 	q.tail = q.head
 }
 
@@ -32,7 +40,7 @@ func (q *Queue[T]) PushFront(value T) {
 		return
 	}
 
-	c := newChunk[T](q.chunkSize)
+	c := q.pool.Get().(*chunk[T])
 	ok = c.PushFront(value)
 	if !ok {
 		panic("could not PushFront to a new chunk")
@@ -58,7 +66,14 @@ func (q *Queue[T]) PopFront() (T, bool) {
 	if q.head.left != nil {
 		q.head.left.right = nil
 	}
+	previous := q.head
 	q.head = q.head.left
+
+	previous.start = 0
+	previous.size = 0
+	previous.left = nil
+	previous.right = nil
+	q.pool.Put(previous)
 
 	if q.head != nil {
 		return q.head.PopFront()
@@ -76,7 +91,7 @@ func (q *Queue[T]) PushBack(value T) {
 		return
 	}
 
-	c := newChunk[T](q.chunkSize)
+	c := q.pool.Get().(*chunk[T])
 	ok = c.PushBack(value)
 	if !ok {
 		panic("could not PushBack to a new chunk")
@@ -102,7 +117,14 @@ func (q *Queue[T]) PopBack() (T, bool) {
 	if q.tail.right != nil {
 		q.tail.right.left = nil
 	}
+	previous := q.tail
 	q.tail = q.tail.right
+
+	previous.start = 0
+	previous.size = 0
+	previous.left = nil
+	previous.right = nil
+	q.pool.Put(previous)
 
 	if q.tail != nil {
 		return q.tail.PopBack()
