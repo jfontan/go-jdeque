@@ -26,13 +26,13 @@ This is comparing different chunk sizes and the following libraries:
 
 ```
 BenchmarkJqueue256
-BenchmarkJqueue256-16        	       8	 134481116 ns/op	164999233 B/op	  156249 allocs/op
+BenchmarkJqueue256-16        	       6	 176126775 ns/op	165000874 B/op	  156253 allocs/op
 BenchmarkJqueue1024
-BenchmarkJqueue1024-16       	       9	 130594665 ns/op	161246101 B/op	   39061 allocs/op
+BenchmarkJqueue1024-16       	       6	 172309224 ns/op	161249330 B/op	   39062 allocs/op
 BenchmarkJqueue1048576
-BenchmarkJqueue1048576-16    	       8	 127108485 ns/op	157287625 B/op	      37 allocs/op
+BenchmarkJqueue1048576-16    	       7	 168460427 ns/op	160583149 B/op	      38 allocs/op
 BenchmarkCarlmjohnson
-BenchmarkCarlmjohnson-16     	       5	 253241587 ns/op	587326593 B/op	      12 allocs/op
+BenchmarkCarlmjohnson-16     	       7	 148484739 ns/op	87885728 B/op	       7 allocs/op
 BenchmarkSekoyo
-BenchmarkSekoyo-16           	       6	 193145746 ns/op	357913936 B/op	       4 allocs/op
+BenchmarkSekoyo-16           	       5	 218807065 ns/op	214748339 B/op	       4 allocs/op
 ```
