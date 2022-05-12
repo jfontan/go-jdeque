@@ -1,4 +1,4 @@
-module github.com/jfontan/go-jqueue
+module github.com/jfontan/go-jdeque
 
 go 1.18
 

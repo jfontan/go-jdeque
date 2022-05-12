@@ -1,4 +1,4 @@
-package jqueue
+package jdeque
 
 import (
 	"testing"

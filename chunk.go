@@ -1,4 +1,4 @@
-package jqueue
+package jdeque
 
 type chunk[T any] struct {
 	values      []T
