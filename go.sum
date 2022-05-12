@@ -1,5 +1,3 @@
-github.com/carlmjohnson/deque v0.0.0-20211122205114-31a0086a6ffc h1:Xe4sxv6mr00TgoO2lCTm01MH14CYMpykdccp7x2h9RI=
-github.com/carlmjohnson/deque v0.0.0-20211122205114-31a0086a6ffc/go.mod h1:Jn2eema4fWad1QhknBdAKTvsD7u/lWciZw8AxTc5UoM=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

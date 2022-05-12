@@ -3,7 +3,6 @@ module github.com/jfontan/go-jdeque
 go 1.18
 
 require (
-	github.com/carlmjohnson/deque v0.0.0-20211122205114-31a0086a6ffc
 	github.com/gammazero/deque v0.0.0-00010101000000-000000000000
 	github.com/stretchr/testify v1.7.0
 )

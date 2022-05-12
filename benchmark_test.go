@@ -3,7 +3,6 @@ package jdeque
 import (
 	"testing"
 
-	"github.com/carlmjohnson/deque"
 	gammazero "github.com/gammazero/deque"
 )
 
@@ -25,23 +24,23 @@ func doWork(q *Queue[int]) {
 	}
 }
 
-func doWorkDeque(q *deque.Deque[int]) {
-	for i := 0; i < 10_000_000; i++ {
-		q.PushHead(i)
-	}
-	for i := 0; i < 5_000_000; i++ {
-		q.PopHead()
-	}
-	for i := 0; i < 10_000_000; i++ {
-		q.PushTail(i)
-	}
-	for i := 0; i < 5_000_000; i++ {
-		q.PopTail()
-	}
-	for i := 0; i < 10_000_000; i++ {
-		q.PopHead()
-	}
-}
+// func doWorkDeque(q *deque.Deque[int]) {
+// 	for i := 0; i < 10_000_000; i++ {
+// 		q.PushHead(i)
+// 	}
+// 	for i := 0; i < 5_000_000; i++ {
+// 		q.PopHead()
+// 	}
+// 	for i := 0; i < 10_000_000; i++ {
+// 		q.PushTail(i)
+// 	}
+// 	for i := 0; i < 5_000_000; i++ {
+// 		q.PopTail()
+// 	}
+// 	for i := 0; i < 10_000_000; i++ {
+// 		q.PopHead()
+// 	}
+// }
 
 func doWorkGammazero(q *gammazero.Deque[int]) {
 	for i := 0; i < 10_000_000; i++ {
@@ -82,12 +81,12 @@ func BenchmarkJqueue1048576(b *testing.B) {
 	}
 }
 
-func BenchmarkCarlmjohnson(b *testing.B) {
-	q := deque.Make[int](0)
-	for n := 0; n < b.N; n++ {
-		doWorkDeque(q)
-	}
-}
+// func BenchmarkCarlmjohnson(b *testing.B) {
+// 	q := deque.Make[int](0)
+// 	for n := 0; n < b.N; n++ {
+// 		doWorkDeque(q)
+// 	}
+// }
 
 func BenchmarkSekoyo(b *testing.B) {
 	q := gammazero.New[int](0)
