@@ -132,3 +132,23 @@ func (q *Queue[T]) PopBack() (T, bool) {
 
 	return v, ok
 }
+
+// Len returns the size of the queue.
+func (q *Queue[T]) Len() int {
+	if q.tail == nil {
+		return 0
+	}
+
+	var size int
+	start := q.tail
+	for {
+		size += start.size
+		if start.right == nil {
+			break
+		}
+
+		start = start.right
+	}
+
+	return size
+}

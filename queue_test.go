@@ -76,3 +76,14 @@ func TestQueueMixed(t *testing.T) {
 
 	require.Equal(t, expected, a)
 }
+
+func TestLen(t *testing.T) {
+	q := New[int](10)
+
+	for i := 0; i < 68; i++ {
+		q.PushFront(0)
+	}
+
+	size := q.Len()
+	require.Equal(t, 68, size)
+}
