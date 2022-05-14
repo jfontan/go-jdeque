@@ -49,6 +49,16 @@ func (c *chunk[T]) PopFront() (T, bool) {
 	return v, true
 }
 
+func (c *chunk[T]) PeekFront() (T, bool) {
+	var v T
+	if c.empty() {
+		return v, false
+	}
+
+	v = c.values[c.pos()-1]
+	return v, true
+}
+
 func (c *chunk[T]) canPushBack() bool {
 	return c.start > 0
 }
