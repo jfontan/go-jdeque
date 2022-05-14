@@ -87,3 +87,21 @@ func TestLen(t *testing.T) {
 	size := q.Len()
 	require.Equal(t, 68, size)
 }
+
+func TestPeekFront(t *testing.T) {
+	q := New[int](10)
+
+	for i := 0; i < 20; i++ {
+		q.PushFront(i)
+	}
+
+	for i := 19; i >= 0; i-- {
+		v, ok := q.PeekFront()
+		require.True(t, ok)
+
+		v2, ok := q.PopFront()
+		require.True(t, ok)
+
+		require.Equal(t, v, v2)
+	}
+}

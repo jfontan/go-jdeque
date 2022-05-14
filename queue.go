@@ -152,3 +152,34 @@ func (q *Queue[T]) Len() int {
 
 	return size
 }
+
+// PeekFront retrieves the rightmost value without consuming it. Returns false if the queue is empty.
+func (q *Queue[T]) PeekFront() (T, bool) {
+	if q.head == nil {
+		var v T
+		return v, false
+	}
+
+	v, ok := q.head.PeekFront()
+	if ok {
+		return v, ok
+	}
+
+	if q.head.left != nil {
+		q.head.left.right = nil
+	}
+	previous := q.head
+	q.head = q.head.left
+
+	previous.start = 0
+	previous.size = 0
+	previous.left = nil
+	previous.right = nil
+	q.pool.Put(previous)
+
+	if q.head != nil {
+		return q.head.PeekFront()
+	}
+
+	return v, ok
+}
